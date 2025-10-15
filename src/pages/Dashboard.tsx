@@ -6,8 +6,12 @@ import {
   AlertCircle,
   TrendingUp,
   Users,
-  FileText 
+  FileText,
+  CheckCircle,
+  Clock,
+  Leaf,
 } from 'lucide-react';
+import { BarChart, Bar, LineChart, Line, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
 const roleMessages = {
   organization_admin: {
@@ -80,6 +84,30 @@ export default function Dashboard() {
     },
   ];
 
+  const workOrderData = [
+    { name: 'Completed', value: 45, color: '#10b981' },
+    { name: 'In Progress', value: 24, color: '#3b82f6' },
+    { name: 'Pending', value: 12, color: '#f59e0b' },
+    { name: 'Cancelled', value: 5, color: '#ef4444' },
+  ];
+
+  const monthlyData = [
+    { month: 'Jan', orders: 65, projects: 28 },
+    { month: 'Feb', orders: 59, projects: 32 },
+    { month: 'Mar', orders: 80, projects: 45 },
+    { month: 'Apr', orders: 81, projects: 52 },
+    { month: 'May', orders: 56, projects: 38 },
+    { month: 'Jun', orders: 55, projects: 42 },
+  ];
+
+  const inventoryData = [
+    { category: 'Electrical', stock: 120 },
+    { category: 'Plumbing', stock: 85 },
+    { category: 'HVAC', stock: 65 },
+    { category: 'Safety', stock: 95 },
+    { category: 'Tools', stock: 110 },
+  ];
+
   return (
     <div className="space-y-6">
       {/* Welcome Section */}
@@ -110,20 +138,90 @@ export default function Dashboard() {
         })}
       </div>
 
-      {/* Recent Activities */}
+      {/* Charts Section */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Work Orders by Status */}
+        <div className="bg-card rounded-lg p-6 border border-border">
+          <h3 className="text-lg font-semibold mb-4">Work Orders by Status</h3>
+          <ResponsiveContainer width="100%" height={250}>
+            <PieChart>
+              <Pie
+                data={workOrderData}
+                cx="50%"
+                cy="50%"
+                labelLine={false}
+                label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%`}
+                outerRadius={80}
+                fill="#8884d8"
+                dataKey="value"
+              >
+                {workOrderData.map((entry, index) => (
+                  <Cell key={`cell-${index}`} fill={entry.color} />
+                ))}
+              </Pie>
+              <Tooltip />
+            </PieChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Monthly Trends */}
+        <div className="bg-card rounded-lg p-6 border border-border">
+          <h3 className="text-lg font-semibold mb-4">Monthly Trends</h3>
+          <ResponsiveContainer width="100%" height={250}>
+            <LineChart data={monthlyData}>
+              <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+              <XAxis dataKey="month" stroke="#9ca3af" />
+              <YAxis stroke="#9ca3af" />
+              <Tooltip />
+              <Legend />
+              <Line type="monotone" dataKey="orders" stroke="#3b82f6" strokeWidth={2} name="Work Orders" />
+              <Line type="monotone" dataKey="projects" stroke="#10b981" strokeWidth={2} name="Projects" />
+            </LineChart>
+          </ResponsiveContainer>
+        </div>
+      </div>
+
+      {/* Inventory Levels */}
+      <div className="bg-card rounded-lg p-6 border border-border">
+        <h3 className="text-lg font-semibold mb-4">Inventory Levels by Category</h3>
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={inventoryData}>
+            <CartesianGrid strokeDasharray="3 3" stroke="#374151" />
+            <XAxis dataKey="category" stroke="#9ca3af" />
+            <YAxis stroke="#9ca3af" />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="stock" fill="#00ABE4" name="Stock Level" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* Recent Activities & Quick Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-card rounded-lg p-6 border border-border">
           <h3 className="text-lg font-semibold mb-4">Recent Activities</h3>
           <div className="space-y-3">
-            {[1, 2, 3].map((i) => (
-              <div key={i} className="flex items-start gap-3 p-3 rounded-md hover:bg-secondary transition-colors">
-                <div className="w-2 h-2 bg-primary rounded-full mt-2" />
-                <div className="flex-1">
-                  <p className="text-sm font-medium">Work order #WO-{1000 + i} completed</p>
-                  <p className="text-xs text-muted-foreground">{i} hour{i > 1 ? 's' : ''} ago</p>
+            {[
+              { id: 1, text: 'Work order #WO-1001 completed', time: '1 hour ago', icon: CheckCircle, color: 'text-green-500' },
+              { id: 2, text: 'New building added: Tower B', time: '2 hours ago', icon: Building2, color: 'text-blue-500' },
+              { id: 3, text: 'Inventory item restocked: HVAC Filters', time: '3 hours ago', icon: Package, color: 'text-purple-500' },
+              { id: 4, text: 'User registered: John Smith', time: '4 hours ago', icon: Users, color: 'text-orange-500' },
+              { id: 5, text: 'Green certification updated', time: '5 hours ago', icon: Leaf, color: 'text-green-600' },
+            ].map((activity) => {
+              const Icon = activity.icon;
+              return (
+                <div key={activity.id} className="flex items-start gap-3 p-3 rounded-md hover:bg-secondary transition-colors">
+                  <Icon className={`h-5 w-5 ${activity.color} flex-shrink-0 mt-0.5`} />
+                  <div className="flex-1">
+                    <p className="text-sm font-medium">{activity.text}</p>
+                    <p className="text-xs text-muted-foreground flex items-center gap-1">
+                      <Clock className="h-3 w-3" />
+                      {activity.time}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -146,6 +244,12 @@ export default function Dashboard() {
               <div className="flex items-center gap-3">
                 <Building2 className="h-5 w-5 text-primary" />
                 <span className="font-medium">Register Building</span>
+              </div>
+            </button>
+            <button className="w-full text-left p-3 rounded-md border border-border hover:bg-secondary transition-colors">
+              <div className="flex items-center gap-3">
+                <FileText className="h-5 w-5 text-primary" />
+                <span className="font-medium">Create Project</span>
               </div>
             </button>
           </div>

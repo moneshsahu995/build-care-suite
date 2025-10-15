@@ -11,6 +11,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import Dashboard from "./pages/Dashboard";
+import Users from "./pages/Users";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -35,6 +36,16 @@ const App = () => (
                 <ProtectedRoute>
                   <DashboardLayout>
                     <Dashboard />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/users"
+              element={
+                <ProtectedRoute requiredRoles={['super_admin', 'organization_admin']}>
+                  <DashboardLayout>
+                    <Users />
                   </DashboardLayout>
                 </ProtectedRoute>
               }
