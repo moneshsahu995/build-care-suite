@@ -28,6 +28,7 @@ export const ROUTES = {
   DASHBOARD: '/dashboard',
   USERS: '/users',
   BUILDINGS: '/buildings',
+  CONTRACTS: '/contracts',
   WORK_ORDERS: '/work-orders',
   INVENTORY: '/inventory',
   CERTIFICATIONS: '/certifications',
