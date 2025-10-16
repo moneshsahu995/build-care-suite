@@ -58,7 +58,7 @@ export default function Register() {
       newErrors.confirmPassword = 'Passwords do not match';
     }
 
-    if (selectedRole === 'organization_admin' && !formData.organizationName.trim()) {
+    if (selectedRole === 'organization_admin' && 'facility_manager' && !formData.organizationName.trim()) {
       newErrors.organizationName = 'Organization name is required for Organization Admin';
     }
 
@@ -205,6 +205,25 @@ export default function Register() {
                 onChange={(e) => setFormData({ ...formData, specializations: e.target.value })}
               />
             </div>
+            <div className="form-group">
+              <label htmlFor="organizationName" className="form-label">
+                Organization Name *
+              </label>
+              <input
+                id="organizationName"
+                type="text"
+                className={`form-input ${errors.organizationName ? 'border-destructive' : ''}`}
+                placeholder="Enter your organization name"
+                value={formData.organizationName}
+                onChange={(e) => setFormData({ ...formData, organizationName: e.target.value })}
+              />
+              {errors.organizationName && (
+                <div className="form-error flex items-center gap-1">
+                  <AlertCircle className="h-3 w-3" />
+                  {errors.organizationName}
+                </div>
+              )}
+            </div>
           </>
         );
 
@@ -237,6 +256,25 @@ export default function Register() {
                 onChange={(e) => setFormData({ ...formData, yearsOfExperience: e.target.value })}
               />
             </div>
+            <div className="form-group">
+              <label htmlFor="organizationName" className="form-label">
+                Organization Name *
+              </label>
+              <input
+                id="organizationName"
+                type="text"
+                className={`form-input ${errors.organizationName ? 'border-destructive' : ''}`}
+                placeholder="Enter your organization name"
+                value={formData.organizationName}
+                onChange={(e) => setFormData({ ...formData, organizationName: e.target.value })}
+              />
+              {errors.organizationName && (
+                <div className="form-error flex items-center gap-1">
+                  <AlertCircle className="h-3 w-3" />
+                  {errors.organizationName}
+                </div>
+              )}
+            </div>
           </>
         );
 
@@ -268,6 +306,25 @@ export default function Register() {
                 value={formData.yearsOfExperience}
                 onChange={(e) => setFormData({ ...formData, yearsOfExperience: e.target.value })}
               />
+            </div>
+            <div className="form-group">
+              <label htmlFor="organizationName" className="form-label">
+                Organization Name *
+              </label>
+              <input
+                id="organizationName"
+                type="text"
+                className={`form-input ${errors.organizationName ? 'border-destructive' : ''}`}
+                placeholder="Enter your organization name"
+                value={formData.organizationName}
+                onChange={(e) => setFormData({ ...formData, organizationName: e.target.value })}
+              />
+              {errors.organizationName && (
+                <div className="form-error flex items-center gap-1">
+                  <AlertCircle className="h-3 w-3" />
+                  {errors.organizationName}
+                </div>
+              )}
             </div>
           </>
         );
@@ -314,6 +371,25 @@ export default function Register() {
                 onChange={(e) => setFormData({ ...formData, gstNumber: e.target.value })}
               />
             </div>
+            <div className="form-group">
+              <label htmlFor="organizationName" className="form-label">
+                Organization Name *
+              </label>
+              <input
+                id="organizationName"
+                type="text"
+                className={`form-input ${errors.organizationName ? 'border-destructive' : ''}`}
+                placeholder="Enter your organization name"
+                value={formData.organizationName}
+                onChange={(e) => setFormData({ ...formData, organizationName: e.target.value })}
+              />
+              {errors.organizationName && (
+                <div className="form-error flex items-center gap-1">
+                  <AlertCircle className="h-3 w-3" />
+                  {errors.organizationName}
+                </div>
+              )}
+            </div>
           </>
         );
 
@@ -345,6 +421,26 @@ export default function Register() {
                 value={formData.yearsOfExperience}
                 onChange={(e) => setFormData({ ...formData, yearsOfExperience: e.target.value })}
               />
+            </div>
+
+            <div className="form-group">
+              <label htmlFor="organizationName" className="form-label">
+                Organization Name *
+              </label>
+              <input
+                id="organizationName"
+                type="text"
+                className={`form-input ${errors.organizationName ? 'border-destructive' : ''}`}
+                placeholder="Enter your organization name"
+                value={formData.organizationName}
+                onChange={(e) => setFormData({ ...formData, organizationName: e.target.value })}
+              />
+              {errors.organizationName && (
+                <div className="form-error flex items-center gap-1">
+                  <AlertCircle className="h-3 w-3" />
+                  {errors.organizationName}
+                </div>
+              )}
             </div>
           </>
         );
