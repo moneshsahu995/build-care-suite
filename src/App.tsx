@@ -12,6 +12,9 @@ import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
 import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
+import Buildings from "./pages/Buildings";
+import Contracts from "./pages/Contracts";
+import Inventory from "./pages/Inventory";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -46,6 +49,36 @@ const App = () => (
                 <ProtectedRoute requiredRoles={['super_admin', 'organization_admin']}>
                   <DashboardLayout>
                     <Users />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/buildings"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <Buildings />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/contracts"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <Contracts />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/inventory"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <Inventory />
                   </DashboardLayout>
                 </ProtectedRoute>
               }

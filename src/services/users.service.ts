@@ -1,4 +1,5 @@
 import { usersApi, CreateUserData, UpdateUserData } from '@/api/endpoints/users.api';
+import { UserRole } from '@/types/auth';
 
 export const usersService = {
   getAllUsers: async () => {
@@ -7,6 +8,15 @@ export const usersService = {
       return response.data;
     } catch (error: any) {
       throw new Error(error.response?.data?.message || 'Failed to fetch users');
+    }
+  },
+
+  getUsersByRole: async (role: UserRole) => {
+    try {
+      const response = await usersApi.getByRole(role);
+      return response.data;
+    } catch (error: any) {
+      throw new Error(error.response?.data?.message || 'Failed to fetch users by role');
     }
   },
 
