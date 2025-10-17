@@ -15,6 +15,11 @@ import Users from "./pages/Users";
 import Buildings from "./pages/Buildings";
 import Contracts from "./pages/Contracts";
 import Inventory from "./pages/Inventory";
+import Projects from "./pages/Projects";
+import Tenants from "./pages/Tenants";
+import Invoices from "./pages/Invoices";
+import WorkOrders from "./pages/WorkOrders";
+import Vendors from "./pages/Vendors";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -79,6 +84,56 @@ const App = () => (
                 <ProtectedRoute>
                   <DashboardLayout>
                     <Inventory />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/projects"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <Projects />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/tenants"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <Tenants />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/invoices"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <Invoices />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/work-orders"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <WorkOrders />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/vendors"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <Vendors />
                   </DashboardLayout>
                 </ProtectedRoute>
               }
