@@ -36,9 +36,12 @@ export const ROUTES = {
   INVOICES: '/invoices',
   VENDORS: '/vendors',
   CERTIFICATIONS: '/certifications',
+  DOCUMENTS: '/documents',
   BOQS: '/boqs',
   PRODUCTS: '/products',
   RFQS: '/rfqs',
+  BIDS: '/bids',
+  CALCULATIONS: '/calculations',
   PROFILE: '/profile',
   SETTINGS: '/settings',
 } as const;

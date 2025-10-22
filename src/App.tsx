@@ -20,6 +20,13 @@ import Tenants from "./pages/Tenants";
 import Invoices from "./pages/Invoices";
 import WorkOrders from "./pages/WorkOrders";
 import Vendors from "./pages/Vendors";
+import GreenProjects from "./pages/GreenProjects";
+import Documents from "./pages/Documents";
+import BOQs from "./pages/BOQs";
+import RFQs from "./pages/RFQs";
+import Bids from "./pages/Bids";
+import Products from "./pages/Products";
+import Calculations from "./pages/Calculations";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -134,6 +141,76 @@ const App = () => (
                 <ProtectedRoute>
                   <DashboardLayout>
                     <Vendors />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/certifications"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <GreenProjects />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/documents"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <Documents />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/boqs"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <BOQs />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/rfqs"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <RFQs />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/bids"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <Bids />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/products"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <Products />
+                  </DashboardLayout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/calculations"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout>
+                    <Calculations />
                   </DashboardLayout>
                 </ProtectedRoute>
               }
