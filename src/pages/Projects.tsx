@@ -316,6 +316,33 @@ const Projects = () => {
                 onChange={(e) => setFormData({ ...formData, budget: Number(e.target.value) })}
               />
             </div>
+            <div className="grid gap-2">
+              <Label htmlFor="buildingId">Building ID *</Label>
+              <Input
+                id="buildingId"
+                value={formData.buildingId || ''}
+                onChange={(e) => setFormData({ ...formData, buildingId: e.target.value })}
+                placeholder="Enter building ID"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="managerId">Manager ID *</Label>
+              <Input
+                id="managerId"
+                value={formData.managerId || ''}
+                onChange={(e) => setFormData({ ...formData, managerId: e.target.value })}
+                placeholder="Enter manager ID"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="tags">Tags (comma-separated)</Label>
+              <Input
+                id="tags"
+                value={formData.tags?.join(', ') || ''}
+                onChange={(e) => setFormData({ ...formData, tags: e.target.value.split(',').map(t => t.trim()).filter(Boolean) })}
+                placeholder="e.g., urgent, hvac, renovation"
+              />
+            </div>
           </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>
@@ -326,14 +353,124 @@ const Projects = () => {
         </DialogContent>
       </Dialog>
 
-      {/* Edit Dialog - Similar structure */}
+      {/* Edit Dialog */}
       <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
         <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle>Edit Project</DialogTitle>
             <DialogDescription>Update project information</DialogDescription>
           </DialogHeader>
-          {/* Same form fields as create */}
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <Label htmlFor="edit-name">Project Name *</Label>
+              <Input
+                id="edit-name"
+                value={formData.name || ''}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="edit-description">Description *</Label>
+              <Textarea
+                id="edit-description"
+                value={formData.description || ''}
+                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="edit-type">Type *</Label>
+                <Select
+                  value={formData.type}
+                  onValueChange={(value: ProjectType) => setFormData({ ...formData, type: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="maintenance">Maintenance</SelectItem>
+                    <SelectItem value="renovation">Renovation</SelectItem>
+                    <SelectItem value="construction">Construction</SelectItem>
+                    <SelectItem value="green_certification">Green Certification</SelectItem>
+                    <SelectItem value="interior_design">Interior Design</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="edit-priority">Priority *</Label>
+                <Select
+                  value={formData.priority}
+                  onValueChange={(value: ProjectPriority) => setFormData({ ...formData, priority: value })}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select priority" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="low">Low</SelectItem>
+                    <SelectItem value="medium">Medium</SelectItem>
+                    <SelectItem value="high">High</SelectItem>
+                    <SelectItem value="urgent">Urgent</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="edit-startDate">Start Date *</Label>
+                <Input
+                  id="edit-startDate"
+                  type="date"
+                  value={formData.startDate || ''}
+                  onChange={(e) => setFormData({ ...formData, startDate: e.target.value })}
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="edit-endDate">End Date *</Label>
+                <Input
+                  id="edit-endDate"
+                  type="date"
+                  value={formData.endDate || ''}
+                  onChange={(e) => setFormData({ ...formData, endDate: e.target.value })}
+                />
+              </div>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="edit-budget">Budget *</Label>
+              <Input
+                id="edit-budget"
+                type="number"
+                value={formData.budget || ''}
+                onChange={(e) => setFormData({ ...formData, budget: Number(e.target.value) })}
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="edit-buildingId">Building ID *</Label>
+              <Input
+                id="edit-buildingId"
+                value={formData.buildingId || ''}
+                onChange={(e) => setFormData({ ...formData, buildingId: e.target.value })}
+                placeholder="Enter building ID"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="edit-managerId">Manager ID *</Label>
+              <Input
+                id="edit-managerId"
+                value={formData.managerId || ''}
+                onChange={(e) => setFormData({ ...formData, managerId: e.target.value })}
+                placeholder="Enter manager ID"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="edit-tags">Tags (comma-separated)</Label>
+              <Input
+                id="edit-tags"
+                value={formData.tags?.join(', ') || ''}
+                onChange={(e) => setFormData({ ...formData, tags: e.target.value.split(',').map(t => t.trim()).filter(Boolean) })}
+                placeholder="e.g., urgent, hvac, renovation"
+              />
+            </div>
+          </div>
           <DialogFooter>
             <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>
               Cancel

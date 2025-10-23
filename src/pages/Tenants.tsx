@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Plus, Search, Edit, Trash2, UserCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
@@ -185,7 +186,159 @@ const Tenants = () => {
         </div>
       )}
 
-      {/* Create/Edit/Delete Dialogs - Similar to other modules */}
+      {/* Create Dialog */}
+      <Dialog open={isCreateDialogOpen} onOpenChange={setIsCreateDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Create New Tenant</DialogTitle>
+            <DialogDescription>Add a new tenant to the system</DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <Label>Tenant Name *</Label>
+              <Input value={formData.name || ''} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Enter tenant name" />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label>Email *</Label>
+                <Input value={formData.contact?.email || ''} onChange={(e) => setFormData({ ...formData, contact: { ...formData.contact as any, email: e.target.value } })} placeholder="Enter email" />
+              </div>
+              <div className="grid gap-2">
+                <Label>Phone *</Label>
+                <Input value={formData.contact?.phone || ''} onChange={(e) => setFormData({ ...formData, contact: { ...formData.contact as any, phone: e.target.value } })} placeholder="Enter phone" />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label>Building ID *</Label>
+                <Input value={formData.buildingId || ''} onChange={(e) => setFormData({ ...formData, buildingId: e.target.value })} placeholder="Enter building ID" />
+              </div>
+              <div className="grid gap-2">
+                <Label>Unit *</Label>
+                <Input value={formData.unit || ''} onChange={(e) => setFormData({ ...formData, unit: e.target.value })} placeholder="e.g., A-101" />
+              </div>
+            </div>
+            <div className="grid gap-2">
+              <Label>Area (sq ft) *</Label>
+              <Input type="number" value={formData.area || ''} onChange={(e) => setFormData({ ...formData, area: Number(e.target.value) })} placeholder="Enter area" />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label>Lease Start Date *</Label>
+                <Input type="date" value={formData.leaseDetails?.startDate || ''} onChange={(e) => setFormData({ ...formData, leaseDetails: { ...formData.leaseDetails as any, startDate: e.target.value } })} />
+              </div>
+              <div className="grid gap-2">
+                <Label>Lease End Date *</Label>
+                <Input type="date" value={formData.leaseDetails?.endDate || ''} onChange={(e) => setFormData({ ...formData, leaseDetails: { ...formData.leaseDetails as any, endDate: e.target.value } })} />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label>Monthly Rent *</Label>
+                <Input type="number" value={formData.leaseDetails?.monthlyRent || ''} onChange={(e) => setFormData({ ...formData, leaseDetails: { ...formData.leaseDetails as any, monthlyRent: Number(e.target.value) } })} placeholder="Enter rent" />
+              </div>
+              <div className="grid gap-2">
+                <Label>Security Deposit *</Label>
+                <Input type="number" value={formData.leaseDetails?.securityDeposit || ''} onChange={(e) => setFormData({ ...formData, leaseDetails: { ...formData.leaseDetails as any, securityDeposit: Number(e.target.value) } })} placeholder="Enter deposit" />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label>Escalation Rate (%) *</Label>
+                <Input type="number" value={formData.leaseDetails?.escalationRate || ''} onChange={(e) => setFormData({ ...formData, leaseDetails: { ...formData.leaseDetails as any, escalationRate: Number(e.target.value) } })} placeholder="e.g., 5" />
+              </div>
+              <div className="grid gap-2">
+                <Label>Renewal Terms *</Label>
+                <Input value={formData.leaseDetails?.renewalTerms || ''} onChange={(e) => setFormData({ ...formData, leaseDetails: { ...formData.leaseDetails as any, renewalTerms: e.target.value } })} placeholder="e.g., 11 months notice" />
+              </div>
+            </div>
+            <div className="grid gap-2">
+              <Label>Lease Terms *</Label>
+              <Textarea value={formData.leaseDetails?.terms || ''} onChange={(e) => setFormData({ ...formData, leaseDetails: { ...formData.leaseDetails as any, terms: e.target.value } })} placeholder="Enter lease terms" rows={3} />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsCreateDialogOpen(false)}>Cancel</Button>
+            <Button onClick={handleCreate}>Create</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Dialog */}
+      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
+        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
+          <DialogHeader>
+            <DialogTitle>Edit Tenant</DialogTitle>
+            <DialogDescription>Update tenant information</DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid gap-2">
+              <Label>Tenant Name *</Label>
+              <Input value={formData.name || ''} onChange={(e) => setFormData({ ...formData, name: e.target.value })} />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label>Email *</Label>
+                <Input value={formData.contact?.email || ''} onChange={(e) => setFormData({ ...formData, contact: { ...formData.contact as any, email: e.target.value } })} />
+              </div>
+              <div className="grid gap-2">
+                <Label>Phone *</Label>
+                <Input value={formData.contact?.phone || ''} onChange={(e) => setFormData({ ...formData, contact: { ...formData.contact as any, phone: e.target.value } })} />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label>Unit *</Label>
+                <Input value={formData.unit || ''} onChange={(e) => setFormData({ ...formData, unit: e.target.value })} />
+              </div>
+              <div className="grid gap-2">
+                <Label>Area (sq ft) *</Label>
+                <Input type="number" value={formData.area || ''} onChange={(e) => setFormData({ ...formData, area: Number(e.target.value) })} />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label>Lease Start Date *</Label>
+                <Input type="date" value={formData.leaseDetails?.startDate || ''} onChange={(e) => setFormData({ ...formData, leaseDetails: { ...formData.leaseDetails as any, startDate: e.target.value } })} />
+              </div>
+              <div className="grid gap-2">
+                <Label>Lease End Date *</Label>
+                <Input type="date" value={formData.leaseDetails?.endDate || ''} onChange={(e) => setFormData({ ...formData, leaseDetails: { ...formData.leaseDetails as any, endDate: e.target.value } })} />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label>Monthly Rent *</Label>
+                <Input type="number" value={formData.leaseDetails?.monthlyRent || ''} onChange={(e) => setFormData({ ...formData, leaseDetails: { ...formData.leaseDetails as any, monthlyRent: Number(e.target.value) } })} />
+              </div>
+              <div className="grid gap-2">
+                <Label>Security Deposit *</Label>
+                <Input type="number" value={formData.leaseDetails?.securityDeposit || ''} onChange={(e) => setFormData({ ...formData, leaseDetails: { ...formData.leaseDetails as any, securityDeposit: Number(e.target.value) } })} />
+              </div>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="grid gap-2">
+                <Label>Escalation Rate (%) *</Label>
+                <Input type="number" value={formData.leaseDetails?.escalationRate || ''} onChange={(e) => setFormData({ ...formData, leaseDetails: { ...formData.leaseDetails as any, escalationRate: Number(e.target.value) } })} />
+              </div>
+              <div className="grid gap-2">
+                <Label>Renewal Terms *</Label>
+                <Input value={formData.leaseDetails?.renewalTerms || ''} onChange={(e) => setFormData({ ...formData, leaseDetails: { ...formData.leaseDetails as any, renewalTerms: e.target.value } })} />
+              </div>
+            </div>
+            <div className="grid gap-2">
+              <Label>Lease Terms *</Label>
+              <Textarea value={formData.leaseDetails?.terms || ''} onChange={(e) => setFormData({ ...formData, leaseDetails: { ...formData.leaseDetails as any, terms: e.target.value } })} rows={3} />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setIsEditDialogOpen(false)}>Cancel</Button>
+            <Button onClick={handleEdit}>Save Changes</Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Dialog */}
       <Dialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <DialogContent>
           <DialogHeader>
